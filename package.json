@@ -1,0 +1,73 @@
+{
+  "name": "addtofavorites",
+  "displayName": "AddToFavorites",
+  "description": "",
+  "version": "1.0.0",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.95.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "Add To Favorites",
+      "properties": {
+        "addtofavorites.folders": {
+          "type": "array",
+          "default": [],
+          "description": "List of favorite folders with their names."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "addtofavorites.add",
+        "title": "Add to favorites"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "addtofavorites.add",
+          "when": "explorerResourceIsFolder",
+          "group": "2_workspace"
+        }
+      ]
+    },
+    "views": {
+      "explorer": [
+        {
+          "id": "addtofavorites.view",
+          "name": "Favorites"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "yarn run package",
+    "compile": "yarn run check-types && yarn run lint && node esbuild.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "yarn run check-types && yarn run lint && node esbuild.js --production",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.95.0",
+    "@types/mocha": "^10.0.9",
+    "@types/node": "20.x",
+    "@typescript-eslint/eslint-plugin": "^8.10.0",
+    "@typescript-eslint/parser": "^8.7.0",
+    "eslint": "^9.13.0",
+    "esbuild": "^0.24.0",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.6.3",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1"
+  }
+}
